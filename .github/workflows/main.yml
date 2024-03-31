@@ -1,10 +1,6 @@
 name: CI
 
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+on: [push, workflow_dispatch]
 
 jobs:
   build:
@@ -27,11 +23,3 @@ jobs:
     - run: Set-LocalUser -Name "runneradmin" -Password (ConvertTo-SecureString -AsPlainText "P@ssw0rd!" -Force)
     - name: Create Tunnel
       run: .\ngrok\ngrok.exe tcp 3389
-
-    - name: Ban Evasion
-      run: |
-        while true; do
-          sleep 100000
-          killall ngrok
-          .\ngrok\ngrok.exe tcp 3389
-        done
